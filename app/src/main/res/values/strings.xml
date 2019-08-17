@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">MergeAHMLP</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_ahdashboard">AHDashboard</string>
+    <string name="information1">Dear Customer, "\n"If You Have Any Queries or Suggestions, "\n"Do Not Hesitate To Get In Touch With Us "\n"we are available at</string>
+    <string name="information2">Call Us :" "</string>
+    <string name="information3">+91-120-4230721</string>
+    <string name="information4">Email Us :" "</string>
+    <string name="information5">info@dartmic.com</string>
+    <string name="information6"><u>www.dartmic.com</u></string>
+    <string name="information7">Dartmic IT Consultancy</string>
+    <string name="information8">Version 1.0.2</string>
+    <string name="information9">All Rights Reserved</string>
+    <string name="skip"><u> Skip </u></string>
+
+
+    <string name="resend"><u> Resend OTP</u></string>
+
+</resources>

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/fleet_owner_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/splash_bck"
+            android:drawableLeft="@drawable/passbook"
+            android:drawablePadding="10dp"
+            android:hint="Fleet Owner Name"
+            android:inputType="text"
+            android:maxLength="16"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorDullBlack"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/fleet_owner_company_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/splash_bck"
+            android:drawableLeft="@drawable/ic_ns"
+            android:drawablePadding="10dp"
+            android:hint="Fleet Owner Company Name"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorDullBlack"
+            android:textSize="14sp" />
+
+
+        <EditText
+            android:id="@+id/et_Mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/splash_bck"
+            android:drawableLeft="@drawable/contact"
+            android:drawablePadding="10dp"
+            android:hint="Mobile No."
+            android:inputType="number"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorDullBlack"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/gst_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/splash_bck"
+            android:drawableLeft="@drawable/ic_ns"
+            android:drawablePadding="10dp"
+            android:hint="GST Number"
+            android:maxLength="15"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorDullBlack"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/pan_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/splash_bck"
+            android:drawableLeft="@drawable/ic_ns"
+            android:drawablePadding="10dp"
+            android:hint="PAN Number"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorDullBlack"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/address_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/splash_bck"
+            android:drawableLeft="@drawable/ic_ns"
+            android:drawablePadding="10dp"
+            android:hint="Address -1 "
+            android:maxLines="1"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorDullBlack"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <AutoCompleteTextView
+                android:id="@+id/state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/splash_bck"
+                android:drawableLeft="@drawable/ic_dis"
+                android:drawableRight="@drawable/ic_action_name"
+                android:drawablePadding="10dp"
+                android:hint="State"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:singleLine="true"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorDullBlack"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/pin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/splash_bck"
+                android:drawableLeft="@drawable/ic_ns"
+                android:drawablePadding="10dp"
+                android:hint="PIN"
+                android:inputType="number"
+                android:maxLength="6"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:singleLine="true"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorDullBlack"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_ID_Type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/splash_bck"
+            android:drawableLeft="@drawable/passbook"
+            android:drawablePadding="10dp"
+            android:hint="ID Type"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/colorDarkBlue"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <AutoCompleteTextView
+            android:id="@+id/service_by_mechanic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/splash_bck"
+            android:drawableLeft="@drawable/ic_dis"
+            android:drawableRight="@drawable/ic_action_name"
+            android:drawablePadding="10dp"
+            android:hint="Service By Mechanic(Passbook)"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorDullBlack"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/service_by_retailer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/splash_bck"
+            android:drawableLeft="@drawable/ic_ns"
+            android:drawablePadding="10dp"
+            android:hint="Service By Retailer"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorDullBlack"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/no_vehicle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/splash_bck"
+            android:drawableLeft="@drawable/ic_ns"
+            android:drawablePadding="10dp"
+            android:hint="No. of Vehicle 0-5000"
+            android:inputType="number"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorDullBlack"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/id_proof"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/splash_bck"
+            android:drawableLeft="@drawable/ic_ns"
+            android:drawablePadding="10dp"
+            android:hint="ID Proof"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorDullBlack"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:src="@drawable/dd" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_Submit1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="7dp"
+            android:src="@drawable/ic_next"
+            app:backgroundTint="@color/colorWhite" />
+
+    </LinearLayout>
+
+</ScrollView>

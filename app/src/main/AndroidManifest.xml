@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.dartmic.mergeahmlp">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Fleet"
+            android:label="Fleet Owner Reg."/>
+        <activity
+            android:name=".MLPDashboard"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".welcome"
+            android:theme="@style/NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AsWhatLogin"
+            android:label="Login As ?" />
+        <activity android:name=".Login" />
+        <activity
+            android:name=".AHLogin"
+            android:theme="@style/NoActionBar" />
+        <activity android:name=".Dashboard" />
+        <activity
+            android:name=".AHDashboard"
+            android:label="Select Category"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ListActivity" />
+        <activity android:name=".CommonActivity" />
+        <activity
+            android:name=".ProfileActivity"
+            android:label="Profile" />
+        <activity
+            android:name=".InfoActivity"
+            android:label="Information" />
+        <activity
+            android:name=".About_us"
+            android:label="About Us" />
+        <activity
+            android:name=".AddMechanic"
+            android:label="Create Mechanic" />
+        <activity
+            android:name=".ViewMech"
+            android:label="View Mechanic" />
+        <activity
+            android:name=".ScanQRCode"
+            android:label="Scan QR Code" />
+        <activity
+            android:name=".QRCodePoints"
+            android:label="QR Code" />
+        <activity
+            android:name=".Coupon"
+            android:label="Coupon History" />
+        <activity
+            android:name=".RedeemRequest"
+            android:label="Redeem Request" />
+        <activity
+            android:name=".RedeemHistory"
+            android:label="Redeem History" />
+        <activity
+            android:name=".VerifyActivity"
+            android:label="View" />
+        <activity
+            android:name=".MProfile"
+            android:label="Profile" />
+        <activity
+            android:name=".MInfoActivity"
+            android:label="Information" />
+        <activity
+            android:name=".MAbout_us"
+            android:label="About Us" />
+        <activity
+            android:name=".MarketAHList"
+            android:label="Market list" />
+        <activity
+            android:name=".ViewRemark"
+            android:label="Remarks" />
+        <activity
+            android:name=".MarketMLPList"
+            android:label="Market list" />
+        <activity android:name=".MCommon" />
+        <activity
+            android:name=".GetHistoryDist"
+            android:label="Distributor History" />
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity" />
+
+        <receiver
+            android:name=".LocationReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.dartmic.mergeahmlp.LocationReceiver.ACTION_PROCESS_UPDATES" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".ViewListContents" />
+        <activity
+            android:name=".AddMechanic2"
+            android:label="Bank Details">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AddMechanic3"
+            android:label="Add Images" />
+        <activity android:name=".edit_mech" />
+        <activity
+            android:name=".Add_Mech_Reg"
+            android:label="Add Mechanic" />
+        <activity android:name=".CreateRemark" />
+        <activity android:name=".AHRemarkActivity" />
+        <activity android:name=".AhLmeActivity" />
+    </application>
+
+</manifest>

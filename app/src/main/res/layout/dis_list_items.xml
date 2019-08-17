@@ -1,0 +1,15 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:drawableLeft="@drawable/ic_dis"
+    android:drawablePadding="10dp"
+    android:hint="Select Distributor"
+    android:gravity="center|left"
+    android:background="@drawable/et_back_drawable"
+    android:textColor="@color/colorAccent"
+    android:textColorHint="@color/colorDullBlack"
+    android:textSize="12sp"
+    android:drawableRight="@drawable/check"
+    android:textStyle="bold">
+</TextView>

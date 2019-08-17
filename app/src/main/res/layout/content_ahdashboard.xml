@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <AutoCompleteTextView
+                android:id="@+id/at_dist"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginTop="8.0dip"
+                android:layout_marginRight="5.0dip"
+                android:hint="Select Distributor"
+                android:imeOptions="actionNext"
+                android:maxLines="1"
+                android:padding="7.0dip"
+                android:singleLine="true" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/lme_review"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginTop="8.0dip"
+                android:layout_marginRight="5.0dip"
+                android:background="@drawable/circle_face"
+                app:cardElevation="5.0dip">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="70.0dip"
+                        android:layout_height="30.0dip"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginRight="2.0dip"
+                        android:background="@color/colorPrimaryDark"
+                        android:src="@drawable/luman" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/circle_face">
+
+                        <ImageView
+                            android:layout_width="60.0dip"
+                            android:layout_height="80.0dip"
+                            android:layout_centerInParent="true"
+                            android:layout_margin="10.0dip"
+                            android:src="@drawable/hii" />
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:gravity="center|left"
+                                android:text="LME Review"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="17.0dip"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:gravity="center|left"
+                                android:text="visit"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="20.0dip"
+                                android:textStyle="normal"
+                                android:visibility="gone" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/RetailerVisit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginTop="8.0dip"
+                android:layout_marginRight="5.0dip"
+                android:background="@drawable/circle_face"
+                app:cardElevation="5.0dip">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="70.0dip"
+                        android:layout_height="30.0dip"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginRight="2.0dip"
+                        android:background="@color/colorPrimaryDark"
+                        android:src="@drawable/luman" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/circle_face">
+
+                        <ImageView
+                            android:layout_width="60.0dip"
+                            android:layout_height="80.0dip"
+                            android:layout_centerInParent="true"
+                            android:layout_margin="10.0dip"
+                            android:src="@drawable/hii" />
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:gravity="center|left"
+                                android:text="Retailer visit"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="17.0dip"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:gravity="center|left"
+                                android:text="visit"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="20.0dip"
+                                android:textStyle="normal"
+                                android:visibility="gone" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/other"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginTop="8.0dip"
+                android:layout_marginRight="5.0dip"
+                android:background="@drawable/circle_face"
+                app:cardElevation="5.0dip">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="70.0dip"
+                        android:layout_height="30.0dip"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginRight="2.0dip"
+                        android:background="@color/colorPrimaryDark"
+                        android:src="@drawable/luman" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/circle_face">
+
+                        <ImageView
+                            android:layout_width="60.0dip"
+                            android:layout_height="80.0dip"
+                            android:layout_centerInParent="true"
+                            android:layout_margin="10.0dip"
+                            android:src="@drawable/hii" />
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:gravity="center|left"
+                                android:text="Other"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="17.0dip"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:gravity="center|left"
+                                android:text="visit"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="20.0dip"
+                                android:textStyle="normal"
+                                android:visibility="gone" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
