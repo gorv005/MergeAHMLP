@@ -28,12 +28,15 @@ import com.dartmic.mergeahmlp.Constants.MechListBean;
 import com.dartmic.mergeahmlp.MLPDashboard;
 import com.dartmic.mergeahmlp.R;
 import com.dartmic.mergeahmlp.SharedPref.MyPref;
+import com.dartmic.mergeahmlp.room.database.AppDatabase;
+import com.dartmic.mergeahmlp.room.entity.MechData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MechListFrag extends Fragment implements View.OnClickListener {
 
@@ -45,13 +48,15 @@ public class MechListFrag extends Fragment implements View.OnClickListener {
     RecyclerView.LayoutManager manager;
     MechanicListAdapt adapter;
     EditText showlist;
-
+    List<MechData> mechData1;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.mech_list_frag, container, false);
         dashboard = new MLPDashboard();
         arrayList = new ArrayList<>();
+       mechData1=AppDatabase.getAppDatabase(getActivity().getApplicationContext()).getMechDataDao().getMech();
+
         data = new ArrayList<>();
         context = getActivity();
         mechanicClick(v);
@@ -131,6 +136,20 @@ public class MechListFrag extends Fragment implements View.OnClickListener {
                             MyPref.storePrefs(context).setMOBILE(object.getString("Phone"));
                             mechListBean.setMech_Id(mech_ID);
                             mechListBean.setPassbook_no(passbook);
+                            //adding to database
+
+                            MechData mechData=new MechData();
+                            mechData.setM_id(mech_ID);
+                            mechData.setTotal_point(points);
+                            mechData.setPhoneNumber(mobile);
+                            mechData.setShopName(shop_Name);
+                            mechData.setPassbook_no(passbook);
+                            mechData.setM_remark("");
+                            mechData.setM_name(name);
+                            if(mechData1!=null && mechData1.size()==0) {
+                                AppDatabase.getAppDatabase(getActivity().getApplicationContext()).getMechDataDao()
+                                        .insert(mechData);
+                            }
                             arrayList.add(mechListBean);
                         }
                     }

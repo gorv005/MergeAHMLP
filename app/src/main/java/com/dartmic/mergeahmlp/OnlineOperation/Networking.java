@@ -23,11 +23,13 @@ public class Networking {
         this.context = context;
     }
 
-    public void login(JSONObjectRequestListener listener, String username, String pass) {
+    public void login(JSONObjectRequestListener listener, String username, String pass,String lat, String longi) {
         AndroidNetworking.initialize(context);
         AndroidNetworking.post(FixedData.baseURL + "rlp/apiMLP/loginlme.php")
                 .addBodyParameter("username", username)
                 .addBodyParameter("password", pass)
+                .addBodyParameter("latitude", lat)
+                .addBodyParameter("longitude", longi)
                 .setPriority(Priority.HIGH).setTag("Login").build().getAsJSONObject(listener);
     }
 

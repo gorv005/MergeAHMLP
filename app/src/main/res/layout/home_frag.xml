@@ -76,7 +76,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginTop="10sp"
                             android:layout_weight="1"
-                            android:text="MLP POINTS"
+                            android:text="Total MLP POINTS"
                             android:textAlignment="center"
                             android:textColor="@color/colorAccent"
                             android:textSize="14sp"
@@ -84,6 +84,35 @@
 
                         <TextView
                             android:id="@+id/tv_Mlp_Points"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10sp"
+                            android:layout_weight="1"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10sp"
+                            android:layout_weight="1"
+                            android:text="Today's MLP POINTS"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_today_Mlp_Points"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_marginTop="10sp"
@@ -163,6 +192,86 @@
                         android:textColor="@color/colorAccent"
                         android:textStyle="bold" />
                 </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                app:cardCornerRadius="10sp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:id="@+id/iv_qr_number"
+                        android:layout_width="48dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/blk_qr" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="Enter QR Number"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                app:cardCornerRadius="10sp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:id="@+id/iv_qr_points"
+                        android:layout_width="48dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/blk_qr" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="Enter QR Points"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
 
             </android.support.v7.widget.CardView>
 

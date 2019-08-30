@@ -79,8 +79,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
+                    android:visibility="gone"
                     android:buttonTint="@color/colorPrimary"
-                    android:checked="true"
                     android:text="Cash" />
 
                 <RadioButton
@@ -88,9 +88,17 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
+                    android:checked="true"
                     android:buttonTint="@color/colorPrimary"
                     android:text="Gift" />
-
+                <RadioButton
+                    android:id="@+id/Gift"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:checked="true"
+                    android:buttonTint="@color/colorPrimary"
+                    android:text="Gift" />
             </RadioGroup>
 
             <LinearLayout

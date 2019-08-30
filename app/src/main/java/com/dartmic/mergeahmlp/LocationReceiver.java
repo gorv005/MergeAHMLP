@@ -10,6 +10,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.dartmic.mergeahmlp.SharedPref.MyPref;
 import com.dartmic.mergeahmlp.Utils.LocationUtil;
+import com.dartmic.mergeahmlp.Utils.SharedPreference;
 import com.dartmic.mergeahmlp.api.SendLocation;
 import com.google.android.gms.location.LocationResult;
 
@@ -45,6 +46,9 @@ public class LocationReceiver extends BroadcastReceiver {
 
     private void sendLocation(Location location, Context context) {
         String addo = LocationUtil.getAddress(context, location);
+        SharedPreference.getInstance(context).setString("lat",""+location.getLatitude());
+        SharedPreference.getInstance(context).setString("longi",""+location.getLongitude());
+
         SendLocation.sendLoc(new JSONObjectRequestListener() {
             @Override
             public void onResponse(JSONObject response) {

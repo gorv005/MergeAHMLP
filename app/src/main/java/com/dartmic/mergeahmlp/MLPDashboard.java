@@ -3,6 +3,7 @@ package com.dartmic.mergeahmlp;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.dartmic.mergeahmlp.Constants.FixedData;
@@ -27,13 +30,18 @@ import com.dartmic.mergeahmlp.Fragments.FleetListFrag;
 import com.dartmic.mergeahmlp.Fragments.HomeFrag;
 import com.dartmic.mergeahmlp.Fragments.MechListFrag;
 import com.dartmic.mergeahmlp.SharedPref.MyPref;
+import com.dartmic.mergeahmlp.Utils.SharedPreference;
 import com.dartmic.mergeahmlp.api.BeatSession;
+import com.dartmic.mergeahmlp.room.database.AppDatabase;
+import com.dartmic.mergeahmlp.room.entity.MechData;
 import com.google.android.gms.location.LocationServices;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MLPDashboard extends BaseAgBc implements View.OnClickListener {
     ActionBar actionBar;
@@ -54,7 +62,7 @@ public class MLPDashboard extends BaseAgBc implements View.OnClickListener {
     static TextView tv_Mech_Name;
     AlertDialog dialog = null;
     static boolean doubleBackToExit = false;
-
+    List<MechData> mechDataWithZeroPoints;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,13 +194,27 @@ public class MLPDashboard extends BaseAgBc implements View.OnClickListener {
                 break;
 
             case R.id.tv_Logout:
-                MyPref.storePrefs(context).setMecId("");
-                logout();
+
                 drawerLayout.closeDrawers();
+                logoutClick();
                 break;
         }
     }
 
+    void  logoutClick(){
+        mechDataWithZeroPoints=AppDatabase.getAppDatabase(getApplicationContext()).getMechDataDao().getMechDataWithLessThenRequiredPoints(300,"");
+        if(mechDataWithZeroPoints!=null && mechDataWithZeroPoints.size()>0){
+            showAlertForMechWithNoPoints(mechDataWithZeroPoints);
+        }
+        else {
+            sendReports();
+
+        }
+    }
+
+    void showAlertForMechWithNoPoints(List<MechData> mechData){
+        enterRemarks(mechData.get(0));
+    }
     private void logout() {
 
         showProgressDialog();
@@ -202,6 +224,7 @@ public class MLPDashboard extends BaseAgBc implements View.OnClickListener {
                 try {
                     if (response.getInt("status") == 1) {
                         myhm = false;
+                        AppDatabase.getAppDatabase(MLPDashboard.this).getMechDataDao().delete();
                         removeLocationUpdates(LocationServices.getFusedLocationProviderClient(getApplicationContext()));
                         MyPref.setmy_mec_id(context, "");
                         MyPref.setMarket_id(context, "");
@@ -225,13 +248,16 @@ public class MLPDashboard extends BaseAgBc implements View.OnClickListener {
             public void onError(ANError anError) {
                 hideProgressDialog();
             }
-        }, context, MyPref.getUserId(context), "", "1", MyPref.isBeatIn(context));
+        }, context, MyPref.getUserId(context), "", "1", MyPref.isBeatIn(context),
+                SharedPreference.getInstance(context).getString("lat"),
+                SharedPreference.getInstance(context).getString("longi")
+                );
     }
 
     private void sendReport() {
 
         if (MyPref.storePrefs(context).getSelectedStatus()) {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(MLPDashboard.this);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             View view1 = getLayoutInflater().inflate(R.layout.remark, null);
             final EditText ahRemark = (EditText) view1.findViewById(R.id.ahRemark);
             final Button remarkSubmit = (Button) view1.findViewById(R.id.btn_Submit);
@@ -299,6 +325,128 @@ public class MLPDashboard extends BaseAgBc implements View.OnClickListener {
             manager.beginTransaction().replace(R.id.frameLayout, home).commit();
             drawerLayout.closeDrawers();
         }
+    }
+    void enterRemarks(final MechData mechData){
+      /*  LayoutInflater layoutinflater = LayoutInflater.from(this);
+        View promptUserView = layoutinflater.inflate(R.layout.mech_remarks, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        alertDialogBuilder.setView(promptUserView);
+
+        final EditText et_remarks = (EditText) promptUserView.findViewById(R.id.et_remarks);
+        final TextView title = (TextView) promptUserView.findViewById(R.id.title);
+
+        title.setText("You have got 0 points from "+mechData.getM_name()+" Please enter reason for that.");
+
+        // prompt for username
+        alertDialogBuilder.setPositiveButton("Submit",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if (et_remarks.getText().toString().length() > 0) {
+                   int val= AppDatabase.getAppDatabase(getApplicationContext()).getMechDataDao().updateMechRemarks(mechData.getM_id(),
+                            et_remarks.getText().toString());
+                       logoutClick();
+                    dialog.dismiss();
+                }
+                else {
+                    et_remarks.requestFocus();
+                    et_remarks.setError("Please enter your comment");
+                }
+            }
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        // all set and time to build and show up!
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();*/
+
+
+        LayoutInflater layoutinflater = LayoutInflater.from(MLPDashboard.this);
+        View promptUserView = layoutinflater.inflate(R.layout.mech_remarks, null);
+        final AlertDialog dialog = new AlertDialog.Builder(MLPDashboard.this)
+                .setView(promptUserView)
+                .setCancelable(false)
+                .setPositiveButton("Submit", null) //Set to null. We override the onclick
+                .setNegativeButton("Cancel", null)
+                .create();
+        final EditText et_remarks = (EditText) promptUserView.findViewById(R.id.et_remarks);
+        final TextView title = (TextView) promptUserView.findViewById(R.id.title);
+        title.setText("You have got less then 300 points from "+mechData.getM_name()+" Please enter reason for that.");
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+            @Override
+            public void onShow( final DialogInterface dialog) {
+
+                Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                button.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        // TODO Do something
+
+                        if (et_remarks.getText().toString().length() > 0) {
+                            int val= AppDatabase.getAppDatabase(getApplicationContext()).getMechDataDao().updateMechRemarks(mechData.getM_id(),
+                                    et_remarks.getText().toString());
+                            logoutClick();
+                            dialog.dismiss();
+                        }
+                        else {
+                            et_remarks.requestFocus();
+                            et_remarks.setError("Please enter your comment");
+                        }
+                    }
+                });
+
+            }
+        });
+        dialog.show();
+
+    }
+    private void sendReports(){
+        showProgressDialog();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(AppDatabase.getAppDatabase(getApplicationContext()).
+                getMechDataDao().getMechForReport());
+
+        AndroidNetworking.initialize(context);
+        AndroidNetworking.post(FixedData.baseURL + "rlp/apiMech/user_point_details.php")
+                .addBodyParameter("user_id",MyPref.getLmeId())
+                .addBodyParameter("market_id",MyPref.getMarket_id(this))
+                .addBodyParameter("m_array",json)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            hideProgressDialog();
+
+                            if (response.getInt("status")==1) {
+                               Toast.makeText(MLPDashboard.this,"Report sent successfully",Toast.LENGTH_LONG).show();
+
+                            }
+                            MyPref.storePrefs(context).setMecId("");
+                            logout();
+                        } catch (JSONException e) {
+                            hideProgressDialog();
+                            MyPref.storePrefs(context).setMecId("");
+                            logout();
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        hideProgressDialog();
+                        MyPref.storePrefs(context).setMecId("");
+                        logout();
+                    }
+                });
     }
 
 }

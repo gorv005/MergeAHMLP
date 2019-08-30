@@ -60,9 +60,9 @@ public class MarketMLPList extends BaseAgBc {
 
                         mkt_id = data.get(position).getMkt_id();
                         MyPref.setMarket_id(context, mkt_id);
+                        sendLogs();
 
                         sendBeatReport();
-
 
                     } else {
 
@@ -155,6 +155,37 @@ public class MarketMLPList extends BaseAgBc {
                         Toast.makeText(context, "Report inserted failed...", Toast.LENGTH_SHORT).show();
 
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(ANError anError) {
+
+            }
+        });
+    }
+    private void sendLogs() {
+
+        AndroidNetworking.initialize(context);
+        AndroidNetworking.post(FixedData.baseURL + "rlp/apiMLP/update_lme_market.php")
+                .addBodyParameter("lme_id", MyPref.getUserId(context))
+                .addBodyParameter("type", "Login")
+                .addBodyParameter("market_id", mkt_id).build().getAsJSONObject(new JSONObjectRequestListener() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                   /* if (response.getInt("status") == 1) {
+                        requestLocationUpdates(LocationServices.getFusedLocationProviderClient(getApplicationContext()));
+                        Toast.makeText(context, "Beat Started...", Toast.LENGTH_SHORT).show();
+                        MyPref.setBeatIn(context, response.getInt("token"));
+                        startActivity(new Intent(MarketMLPList.this, MLPDashboard.class));
+                        finish();
+                    } else
+                        Toast.makeText(context, "Report inserted failed...", Toast.LENGTH_SHORT).show();*/
+
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 

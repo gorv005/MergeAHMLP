@@ -3,18 +3,21 @@ package com.dartmic.mergeahmlp.Fragments;
 import android.Manifest;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,17 +36,18 @@ import com.dartmic.mergeahmlp.RedeemRequest;
 import com.dartmic.mergeahmlp.ScanQRCode;
 import com.dartmic.mergeahmlp.SharedPref.MyPref;
 import com.dartmic.mergeahmlp.edit_mech;
+import com.dartmic.mergeahmlp.room.database.AppDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class HomeFrag extends Fragment {
-    TextView tv_Mlp_Points;
+    TextView tv_Mlp_Points,tv_today_Mlp_Points;
     Button tv_Coupon_History;
     TextView tv_Navigation;
     Context context;
     boolean flag = true;
-    ImageView iv_QrCode, img_menu, iv_Redeem, iv_Redeem_His;
+    ImageView iv_QrCode, img_menu, iv_Redeem, iv_Redeem_His,iv_qr_number,iv_qr_points;
     String updatedPoints = "0";
     Button btn_Finalle;
     static String allFinal;
@@ -76,7 +80,7 @@ public class HomeFrag extends Fragment {
                                     == PackageManager.PERMISSION_GRANTED) {
                         Intent intent = new Intent(context, ScanQRCode.class);
                         startActivity(intent);
-                        getActivity().finish();
+                      //  getActivity().finish();
                     } else {
                         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1001);
                     }
@@ -107,7 +111,12 @@ public class HomeFrag extends Fragment {
         iv_Redeem = (ImageView) v.findViewById(R.id.iv_Redeem);
         btn_Finalle = (Button) v.findViewById(R.id.btn_Finalle);
         iv_Redeem_His = (ImageView) v.findViewById(R.id.iv_Redeem_His);
+        iv_qr_number = (ImageView) v.findViewById(R.id.iv_qr_number);
+        iv_qr_points = (ImageView) v.findViewById(R.id.iv_qr_points);
+
         tv_Navigation = (TextView) v.findViewById(R.id.tv_Navigation);
+        tv_today_Mlp_Points = (TextView) v.findViewById(R.id.tv_today_Mlp_Points);
+
         tv_Navigation.setText(MyPref.storePrefs(context).getEmail());
         if (MyPref.storePrefs(context).getSelectedStatus())
             tv_Navigation.setText(MyPref.storePrefs(context).getMechName() + "(" + MyPref.storePrefs(context).getPassbook() + ")");
@@ -149,6 +158,7 @@ public class HomeFrag extends Fragment {
                 MLPDashboard.drawerLayout.openDrawer(Gravity.LEFT);
             }
         });
+
         v.findViewById(R.id.tv_Coupon_History).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -191,6 +201,24 @@ public class HomeFrag extends Fragment {
 //                btn_Finalle.setText(allFinal);
             }
         });
+
+        v.findViewById(R.id.iv_qr_number).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MyPref.storePrefs(context).getSelectedStatus()) {
+                   enterQRNumberDialog();
+                } else Toast.makeText(context, "Please Select Mechanic", Toast.LENGTH_SHORT).show();
+            }
+        });
+        v.findViewById(R.id.iv_qr_points).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MyPref.storePrefs(context).getSelectedStatus()) {
+                    enterQRPointsDialog();
+                } else Toast.makeText(context, "Please Select Mechanic", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void finalle(final Context context) {
@@ -260,6 +288,84 @@ public class HomeFrag extends Fragment {
     }
 
 
+    void enterQRNumberDialog(){
+        LayoutInflater layoutinflater = LayoutInflater.from(context);
+        View promptUserView = layoutinflater.inflate(R.layout.qr_code_dialog_layout, null);
+        final AlertDialog dialog = new AlertDialog.Builder(context)
+                .setView(promptUserView)
+                .setTitle("QR Number")
+                .setCancelable(false)
+                .setPositiveButton("Submit", null) //Set to null. We override the onclick
+                .setNegativeButton("Cancel", null)
+                .create();
+        final EditText userAnswer = (EditText) promptUserView.findViewById(R.id.et_dr_number);
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+            @Override
+            public void onShow( final DialogInterface dialog) {
+
+                Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                button.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        // TODO Do something
+
+                        if (userAnswer.getText().toString().length() > 0) {
+                            redeemQRPoints(userAnswer.getText().toString());
+                            dialog.dismiss();
+                        }
+                        else {
+                            userAnswer.requestFocus();
+                            userAnswer.setError("Please enter your QR number");
+                        }
+                    }
+                });
+
+            }
+        });
+        dialog.show();
+    }
+    void enterQRPointsDialog(){
+        LayoutInflater layoutinflater = LayoutInflater.from(context);
+        View promptUserView = layoutinflater.inflate(R.layout.qr_code_dialog_layout, null);
+        final AlertDialog dialog = new AlertDialog.Builder(context)
+                .setView(promptUserView)
+                .setTitle("QR Points")
+                .setCancelable(false)
+                .setPositiveButton("Submit", null) //Set to null. We override the onclick
+                .setNegativeButton("Cancel", null)
+                .create();
+        final EditText userAnswer = (EditText) promptUserView.findViewById(R.id.et_dr_number);
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+            @Override
+            public void onShow( final DialogInterface dialog) {
+
+                Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                button.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        // TODO Do something
+
+                        if (userAnswer.getText().toString().length() > 0) {
+                            redeemQRScanPoints(userAnswer.getText().toString());
+                            dialog.dismiss();
+                        }
+                        else {
+                            userAnswer.requestFocus();
+                            userAnswer.setError("Please enter your QR number");
+                        }
+                    }
+                });
+
+            }
+        });
+        dialog.show();
+    }
 
     private void totalPoints(){
         AndroidNetworking.initialize(context);
@@ -272,8 +378,12 @@ public class HomeFrag extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            if (response.getInt("status")==1){
-                               tv_Mlp_Points.setText(""+response.getString("total"));
+                            if (response.getInt("status")==1) {
+                                tv_Mlp_Points.setText("" + response.getString("total"));
+                                tv_today_Mlp_Points.setText("" + response.getString("todays_point"));
+                                if (MyPref.storePrefs(context).getSelectedStatus()) {
+                                    AppDatabase.getAppDatabase(getActivity().getApplicationContext()).getMechDataDao().updateMechPoints(MyPref.storePrefs(context).getMecId(),  response.getString("total"),response.getInt("todays_point"));
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -286,4 +396,90 @@ public class HomeFrag extends Fragment {
                     }
                 });
     }
+
+
+    public void redeemQRPoints(String qrNumber) {
+        ((MLPDashboard)getActivity()).showProgressDialog();
+        AndroidNetworking.initialize(context);
+        AndroidNetworking.post(FixedData.baseURL + "rlp/apiMech/post_qrcode3.php")
+                .addBodyParameter("m_id", MyPref.storePrefs(context).getMecId())
+                .addBodyParameter("L_part_num", qrNumber)
+                .addBodyParameter("scan_pts", "0")
+                .setPriority(Priority.MEDIUM)
+                .setTag("As")
+                .build().getAsJSONObject(new JSONObjectRequestListener() {
+            @Override
+            public void onResponse(JSONObject response) {
+                ((MLPDashboard)getActivity()).hideProgressDialog();
+                Log.e("aja re RES:::::::::::", response.toString());
+                try {
+                    if (response.getInt("status") == 1) {
+
+                        totalPoints();
+
+                    }
+                   else if (response.getInt("status") == -1) {
+
+                        Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
+
+                    }
+                    else if (response.getInt("status") == 0) {
+                        Toast.makeText(context, "QR Code already used!!!", Toast.LENGTH_SHORT).show();
+
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(ANError anError) {
+                ((MLPDashboard)getActivity()).hideProgressDialog();
+            }
+        });
+    }
+    public void redeemQRScanPoints(String points) {
+        ((MLPDashboard)getActivity()).showProgressDialog();
+        AndroidNetworking.initialize(context);
+        String s=MyPref.storePrefs(context).getMecId();
+        AndroidNetworking.post(FixedData.baseURL + "rlp/apiMech/post_qrcode3.php")
+                .addBodyParameter("m_id", s)
+                .addBodyParameter("L_part_num", "")
+                .addBodyParameter("scan_pts", points)
+                .setPriority(Priority.MEDIUM)
+                .setTag("As")
+                .build().getAsJSONObject(new JSONObjectRequestListener() {
+            @Override
+            public void onResponse(JSONObject response) {
+                ((MLPDashboard)getActivity()).hideProgressDialog();
+                Log.e("aja re RES:::::::::::", response.toString());
+                try {
+                    if (response.getInt("status") == 1) {
+
+                        totalPoints();
+
+                    }
+                    else if (response.getInt("status") == -1) {
+
+                        Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
+
+                    }
+                    else if (response.getInt("status") == 0) {
+                        Toast.makeText(context, "QR Code already used!!!", Toast.LENGTH_SHORT).show();
+
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(ANError anError) {
+                ((MLPDashboard)getActivity()).hideProgressDialog();
+            }
+        });
+    }
+
 }

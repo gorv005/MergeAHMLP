@@ -20,5 +20,9 @@
 
 
     <string name="resend"><u> Resend OTP</u></string>
+    <string name="enter_qr_number">Enter QR Number</string>
+    <string name="enter_qr_points">Enter QR Ponits</string>
+
+    <string name="remarks">Comment</string>
 
 </resources>

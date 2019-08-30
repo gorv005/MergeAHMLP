@@ -153,7 +153,7 @@ public class QRCodePoints extends BaseAgBc {
     public void redeemQRPoints() {
         showProgressDialog();
         AndroidNetworking.initialize(context);
-        AndroidNetworking.post(FixedData.baseURL + "rlp/apiMech/post_qrcode2.php")
+        AndroidNetworking.post(FixedData.baseURL + "rlp/apiMech/post_qrcode3.php")
                 .addBodyParameter("m_id", MyPref.storePrefs(context).getMecId())
                 .addBodyParameter("L_part_num", part)
                 .addBodyParameter("scan_pts", point.replaceAll("”", ""))
@@ -167,11 +167,18 @@ public class QRCodePoints extends BaseAgBc {
                 try {
                     if (response.getInt("status") == 1) {
 
-                        startActivity(new Intent(context, MLPDashboard.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        startActivity(new Intent(context, MLPDashboard.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                         finish();
-                    } else if (response.getInt("status") == 0) {
+                    }
+
+                    else if (response.getInt("status") == -1) {
+
+                        Toast.makeText(context, response.getString("msg"), Toast.LENGTH_SHORT).show();
+
+                    }
+                    else if (response.getInt("status") == 0) {
                         Toast.makeText(context, "QR Code already used!!!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(context, MLPDashboard.class));
+                        startActivity(new Intent(context, MLPDashboard.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                         finish();
                     }
                 } catch (JSONException e) {
@@ -182,7 +189,7 @@ public class QRCodePoints extends BaseAgBc {
             @Override
             public void onError(ANError anError) {
                 hideProgressDialog();
-                startActivity(new Intent(context, MLPDashboard.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startActivity(new Intent(context, MLPDashboard.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                 finish();
                 Log.e("ERRRROORRR", anError.toString());
 

@@ -22,6 +22,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.dartmic.mergeahmlp.Constants.FixedData;
 import com.dartmic.mergeahmlp.OnlineOperation.Networking;
 import com.dartmic.mergeahmlp.SharedPref.MyPref;
+import com.dartmic.mergeahmlp.Utils.SharedPreference;
 import com.google.android.gms.location.LocationServices;
 
 import org.json.JSONException;
@@ -141,7 +142,8 @@ public class Login extends BaseAgBc implements View.OnClickListener {
             public void onError(ANError anError) {
 
             }
-        }, name1, pass);
+        }, name1, pass, SharedPreference.getInstance(context).getString("lat"),
+                SharedPreference.getInstance(context).getString("longi"));
     }
 
     private void dBox() {
